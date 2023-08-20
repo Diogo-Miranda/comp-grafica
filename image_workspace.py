@@ -14,7 +14,6 @@ class ImageWorkspace:
         """ Iniciar a imagem inicial """
         self.__image_frame = ctk.CTkFrame(placeholder)     # Define um placeholder inicial para renderizar a image
         
-
         # Definição do workspace da imagem e atribuindo as barras de rolagem
         # Público para alteração por outras classes
         self.canvas = ctk.CTkCanvas(self.__image_frame,

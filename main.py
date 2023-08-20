@@ -80,6 +80,39 @@ class MainWindow(CTkScalingBaseClass):
         
         self.color_button.grid(row=4, column=0, pady=15, padx=50)
 
+        self.x_label = ctk.CTkLabel(
+            self.left_frame,
+            text=X_LABEL_NAME, 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+
+        self.x_label.grid(row=5, column=0, ipadx=35)
+
+        self.x_entry = ctk.CTkEntry(
+            self.left_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        
+        self.x_entry.grid(row=6, column=0, ipadx=35)
+
+        self.y_label = ctk.CTkLabel(
+            self.left_frame,
+            text=Y_LABEL_NAME, 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        
+        self.y_label.grid(row=7, column=0, ipadx=35)
+        
+        self.y_entry = ctk.CTkEntry(
+            self.left_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        
+        self.y_entry.grid(row=8, column=0, ipadx=35)
+        
+
     def __init__(self, mainframe):
         # Inicializa o Frame inicial
 
@@ -102,6 +135,8 @@ class MainWindow(CTkScalingBaseClass):
 
         self.set_active_tool()
 
+X_LABEL_NAME = "x"
+Y_LABEL_NAME = "y"
 
 root = ctk.CTk()
 
