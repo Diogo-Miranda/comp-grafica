@@ -22,8 +22,85 @@ class MainWindow(CTkScalingBaseClass):
     def set_active_tool(self):
         self.canvas.current_color = self.colors_optionmenu_var.get()
 
+    def run_dda(self):
+        self.canvas.dda(
+            int(self.dda_x1_entry.get()),
+            int(self.dda_x1_entry.get()),
+            int(self.dda_x2_entry.get()),
+            int(self.dda_y2_entry.get()))
+
+    def __dda_custom_bar(self):
+        self.dda_frame = ctk.CTkFrame(self.left_frame, width=300, height=100)
+
+        self.dda_frame.grid(
+            row=10,
+            ipadx=10,
+            padx=15)
+    
+        # x1 y1
+        self.dda_x1_label = ctk.CTkLabel(
+            self.dda_frame,
+            text="x1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.dda_x1_label.grid(row=0, column=0, pady=5)
+
+        self.dda_x1_entry = ctk.CTkEntry(
+            self.dda_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.dda_x1_entry.grid(row=0, column=1, pady=5)
+
+        self.dda_y1_label = ctk.CTkLabel(
+            self.dda_frame,
+            text="y1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.dda_y1_label.grid(row=0, column=2, pady=5)
+
+        self.dda_y1_entry = ctk.CTkEntry(
+            self.dda_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.dda_y1_entry.grid(row=0, column=3, pady=5)
+
+        # x2 y2
+        self.dda_x2_label = ctk.CTkLabel(
+            self.dda_frame,
+            text="x2", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.dda_x2_label.grid(row=1, column=0, pady=5)
+
+        self.dda_x2_entry = ctk.CTkEntry(
+            self.dda_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.dda_x2_entry.grid(row=1, column=1, pady=5)
+
+        self.dda_y2_label = ctk.CTkLabel(
+            self.dda_frame,
+            text="y1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.dda_y2_label.grid(row=1, column=2, pady=5)
+
+        self.dda_y2_entry = ctk.CTkEntry(
+            self.dda_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.dda_y2_entry.grid(row=1, column=3, pady=5)
+
     def __load_custom_bar(self):
-         # # Cria um frame lateral para a barra de customizações
+        # # Cria um frame lateral para a barra de customizações
         self.left_frame = ctk.CTkFrame(root, width=300, height=600)
 
         self.tolls_optionmenu_var = ctk.StringVar(value="Pen")
@@ -112,6 +189,15 @@ class MainWindow(CTkScalingBaseClass):
         
         self.y_entry.grid(row=8, column=0, ipadx=35)
         
+        self.dda_button = ctk.CTkButton(
+            self.left_frame,
+            text="DDA",
+            font=('Sans-serif', 15),
+            command=self.run_dda)
+        
+        self.dda_button.grid(row=9, column=0, pady=15, padx=50)
+
+        self.__dda_custom_bar()
 
     def __init__(self, mainframe):
         # Inicializa o Frame inicial

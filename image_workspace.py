@@ -66,3 +66,30 @@ class ImageWorkspace:
         self.__image_frame.grid(sticky='nswe')  # make frame container sticky
         self.__image_frame.rowconfigure(0, weight=1)  # make canvas expandable
         self.__image_frame.columnconfigure(0, weight=1)
+    
+    def dda(self, x1, y1, x2, y2):
+        self.__dda(x1, y1, x2, y2)
+    
+    def __dda(self, x1, y1, x2, y2):
+        dx = x2 - x1
+        dy = y2 - y1
+        x_incr = 0
+        y_incr = 0
+        x = 0
+        y = 0
+        steps = 0
+        if abs(dx) > abs(dy):
+            steps = abs(dx)
+        else:
+            steps = abs(dy)
+        x_incr = dx / steps
+        y_incr = dy / steps
+        x, y = x1, x2
+        self.__set_pixel(round(x), round(y))
+        for k in range(1, steps):
+            x = x + x_incr
+            y = y + y_incr
+            self.__set_pixel(round(x), round(y))
+    
+    def __set_pixel(self, x, y):
+        self.canvas.create_rectangle(x, y, x + 1, y + 1, fill="red")
