@@ -75,8 +75,7 @@ class ImageWorkspace:
         dy = y2 - y1
         x_incr = 0
         y_incr = 0
-        x = 0
-        y = 0
+        x, y = x1, y1
         steps = 0
         if abs(dx) > abs(dy):
             steps = abs(dx)
@@ -84,7 +83,6 @@ class ImageWorkspace:
             steps = abs(dy)
         x_incr = dx / steps
         y_incr = dy / steps
-        x, y = x1, x2
         self.__set_pixel(round(x), round(y))
         for k in range(1, steps):
             x = x + x_incr
