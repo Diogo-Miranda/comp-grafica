@@ -28,6 +28,13 @@ class MainWindow(CTkScalingBaseClass):
             int(self.dda_x1_entry.get()),
             int(self.dda_x2_entry.get()),
             int(self.dda_y2_entry.get()))
+        
+    def run_bres(self):
+        self.canvas.bres(
+            int(self.bres_x1_entry.get()),
+            int(self.bres_x1_entry.get()),
+            int(self.bres_x2_entry.get()),
+            int(self.bres_y2_entry.get()))
 
     def __dda_custom_bar(self):
         self.dda_frame = ctk.CTkFrame(self.left_frame, width=300, height=100)
@@ -86,7 +93,7 @@ class MainWindow(CTkScalingBaseClass):
 
         self.dda_y2_label = ctk.CTkLabel(
             self.dda_frame,
-            text="y1", 
+            text="y2", 
             fg_color="transparent",
             font=('Sans-serif', 15))
         self.dda_y2_label.grid(row=1, column=2, pady=5)
@@ -98,6 +105,76 @@ class MainWindow(CTkScalingBaseClass):
             font=('Sans-serif', 15),
             width=75)
         self.dda_y2_entry.grid(row=1, column=3, pady=5)
+
+    def __bres_custom_bar(self):
+        self.bres_frame = ctk.CTkFrame(self.left_frame, width=300, height=100)
+
+        self.bres_frame.grid(
+            row=12,
+            ipadx=10,
+            padx=15)
+    
+        # x1 y1
+        self.bres_x1_label = ctk.CTkLabel(
+            self.bres_frame,
+            text="x1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.bres_x1_label.grid(row=0, column=0, pady=5)
+
+        self.bres_x1_entry = ctk.CTkEntry(
+            self.bres_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.bres_x1_entry.grid(row=0, column=1, pady=5)
+
+        self.bres_y1_label = ctk.CTkLabel(
+            self.bres_frame,
+            text="y1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.bres_y1_label.grid(row=0, column=2, pady=5)
+
+        self.bres_y1_entry = ctk.CTkEntry(
+            self.bres_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.bres_y1_entry.grid(row=0, column=3, pady=5)
+
+        # x2 y2
+        self.bres_x2_label = ctk.CTkLabel(
+            self.bres_frame,
+            text="x2", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.bres_x2_label.grid(row=1, column=0, pady=5)
+
+        self.bres_x2_entry = ctk.CTkEntry(
+            self.bres_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.bres_x2_entry.grid(row=1, column=1, pady=5)
+
+        self.bres_y2_label = ctk.CTkLabel(
+            self.bres_frame,
+            text="y2", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.bres_y2_label.grid(row=1, column=2, pady=5)
+
+        self.bres_y2_entry = ctk.CTkEntry(
+            self.bres_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.bres_y2_entry.grid(row=1, column=3, pady=5)
 
     def __load_custom_bar(self):
         # # Cria um frame lateral para a barra de customizações
@@ -198,6 +275,16 @@ class MainWindow(CTkScalingBaseClass):
         self.dda_button.grid(row=9, column=0, pady=15, padx=50)
 
         self.__dda_custom_bar()
+
+        self.bres_button = ctk.CTkButton(
+                    self.left_frame,
+                    text="BRES",
+                    font=('Sans-serif', 15),
+                    command=self.run_bres)
+                
+        self.bres_button.grid(row=11, column=0, pady=15, padx=50)
+
+        self.__bres_custom_bar()
 
     def __init__(self, mainframe):
         # Inicializa o Frame inicial

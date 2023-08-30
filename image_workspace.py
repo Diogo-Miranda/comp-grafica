@@ -89,5 +89,56 @@ class ImageWorkspace:
             y = y + y_incr
             self.__set_pixel(round(x), round(y))
     
+    def bres(self, x1, y1, x2, y2):
+        self.__bres(x1, y1, x2, y2)
+
+    def __bres(self, x1, y1, x2, y2):
+        dx = x2 - x1
+        dy = y2 - y1
+        incr_x = 0
+        incr_y = 0
+        
+        if (dx >= 0):
+            incr_x = 1
+        else:
+            incr_x = -1
+            dx = -dx
+        
+        if (dy >= 0):
+            incr_y = 1
+        else:
+            incr_y = -1
+            dy = -dy
+        
+        x = x1
+        y = y1
+        self.__set_pixel(x, y)
+
+        if (dy < dx):
+            p = 2*dy - dx
+            const_a = 2*dy
+            const_b = 2*(dy - dx)
+            for i in range(0, dx):
+                x = x + incr_x
+                if (p < 0):
+                    p = p + const_a
+                else:
+                    y = y + incr_y
+                    p = p + const_b
+                self.__set_pixel(x, y)
+        else:
+            p = 2*dx - dy
+            const_a = 2*dx
+            const_b = 2*(dx - dy)
+            for i in range(dy):
+                y = y + incr_y
+                if (p < 0):
+                    p = p + const_a
+                else:
+                    x = x + incr_x
+                    p = p + const_b
+                self.__set_pixel(x, y)
+
+    
     def __set_pixel(self, x, y):
-        self.canvas.create_rectangle(x, y, x + 1, y + 1, fill="red")
+        self.canvas.create_rectangle(x, y, x + 1, y + 1, fill="black")
