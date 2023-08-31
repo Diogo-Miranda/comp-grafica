@@ -36,3 +36,9 @@ O algoritmo funciona da seguinte forma:
 3. Calcula-se o incremento em x e y, dividindo pelos passos. 
 4. Arredonda-se os valores de x e y para pintar o pixel.
 5. O valor do X atual é incrementado com o incremento com o incremento de X e Y com o incremento de Y
+
+# Algoritmo Bresenham
+
+O algoritmo de Bresenham é descrito como um algoritmo de rasterização utilizado, nesse projeto, para desenhar retas em um workspace. Par isso o algoritmo recebe de entrada os pontos: (x1, y1) inicias e (x2, y2) finais.
+
+O algoritmo está implementado na classe **image_workspace** e disponível na interface do projeto.
