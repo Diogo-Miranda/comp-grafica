@@ -2,9 +2,16 @@ import tkinter as tk
 from customtkinter.windows.widgets.scaling.scaling_base_class import CTkScalingBaseClass
 import customtkinter as ctk
 from image_workspace import ImageWorkspace
+import sys
 
 # Classe que referencia o container prinipal da aplicação
 class MainWindow(CTkScalingBaseClass):
+    
+    def flood_fill(self):
+        self.canvas.flood_fill(int(self.flood_x1_entry.get()), int(self.flood_y1_entry.get()), "blue")
+
+    def boundary_fill(self):
+        self.canvas.flood_fill(int(self.boundary_x1_entry.get()), int(self.boundary_y1_entry.get()), "blue")
 
     def __load_canvas(self):
         # Cria o canvas image inicial
@@ -105,6 +112,86 @@ class MainWindow(CTkScalingBaseClass):
             font=('Sans-serif', 15),
             width=75)
         self.dda_y2_entry.grid(row=1, column=3, pady=5)
+
+    def __flood_custom_bar(self):
+        self.flood_frame = ctk.CTkFrame(self.left_frame, width=300, height=100)
+
+        self.flood_frame.grid(
+            column=1,
+            row=1,
+            ipadx=10,
+            padx=15)
+    
+        # x1 y1
+        self.flood_x1_label = ctk.CTkLabel(
+            self.flood_frame,
+            text="x1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.flood_x1_label.grid(row=0, column=0, pady=5)
+
+        self.flood_x1_entry = ctk.CTkEntry(
+            self.flood_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.flood_x1_entry.grid(row=0, column=1, pady=5)
+
+        self.flood_y1_label = ctk.CTkLabel(
+            self.flood_frame,
+            text="y1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.flood_y1_label.grid(row=0, column=2, pady=5)
+
+        self.flood_y1_entry = ctk.CTkEntry(
+            self.flood_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.flood_y1_entry.grid(row=0, column=3, pady=5)
+
+    def __boundary_custom_bar(self):
+        self.boundary_frame = ctk.CTkFrame(self.left_frame, width=300, height=100)
+
+        self.boundary_frame.grid(
+            column=1,
+            row=3,
+            ipadx=10,
+            padx=15)
+    
+        # x1 y1
+        self.boundary_x1_label = ctk.CTkLabel(
+            self.boundary_frame,
+            text="x1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.boundary_x1_label.grid(row=0, column=0, pady=5)
+
+        self.boundary_x1_entry = ctk.CTkEntry(
+            self.boundary_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.boundary_x1_entry.grid(row=0, column=1, pady=5)
+
+        self.boundary_y1_label = ctk.CTkLabel(
+            self.boundary_frame,
+            text="y1", 
+            fg_color="transparent",
+            font=('Sans-serif', 15))
+        self.boundary_y1_label.grid(row=0, column=2, pady=5)
+
+        self.boundary_y1_entry = ctk.CTkEntry(
+            self.boundary_frame, 
+            placeholder_text="0",
+            fg_color="transparent",
+            font=('Sans-serif', 15),
+            width=75)
+        self.boundary_y1_entry.grid(row=0, column=3, pady=5)
 
     def __bres_custom_bar(self):
         self.bres_frame = ctk.CTkFrame(self.left_frame, width=300, height=100)
@@ -284,7 +371,31 @@ class MainWindow(CTkScalingBaseClass):
                 
         self.bres_button.grid(row=11, column=0, pady=15, padx=50)
 
+        # row 13
         self.__bres_custom_bar()
+
+        self.flood_button = ctk.CTkButton(
+            self.left_frame,
+            text="Flood",
+            font=('Sans-serif', 15),
+            command=self.flood_fill)
+        
+        # Row 0
+        self.flood_button.grid(row=0, column=1, pady=15, padx=50)
+        
+        # Row 1
+        self.__flood_custom_bar()
+
+        self.boundary_button = ctk.CTkButton(
+            self.left_frame,
+            text="Boundary",
+            font=('Sans-serif', 15),
+            command=self.boundary_fill)
+        
+        # Row 2
+        self.boundary_button.grid(row=2, column=1, pady=15, padx=50)
+        
+        self.__boundary_custom_bar()
 
     def __init__(self, mainframe):
         # Inicializa o Frame inicial
@@ -313,7 +424,10 @@ Y_LABEL_NAME = "y"
 
 root = ctk.CTk()
 
+print(sys.getrecursionlimit())
+
 root.geometry("1366x768")
+sys.setrecursionlimit(100000000)
 
 app = MainWindow(root)
 root.mainloop()

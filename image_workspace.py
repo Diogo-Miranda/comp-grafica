@@ -32,6 +32,7 @@ class ImageWorkspace:
 
         # Atribuir botões para trabalhar em conjunto com o workspace
         self.__bind_keys()
+        self.pixel_colors = {}
 
     def __bind_keys(self):
         self.canvas.bind("<Button-1>", self.start_drawing)
@@ -50,9 +51,10 @@ class ImageWorkspace:
             self.last_y = y
         elif self.active_tool == "Pen":
             x, y = event.x, event.y
-            self.canvas.create_line(self.last_x, self.last_y, x, y, fill=self.current_color, width=2, capstyle=tk.ROUND, smooth=tk.TRUE)
+            self.canvas.create_line(self.last_x, self.last_y, x, y, fill="black", width=1, capstyle=tk.ROUND, smooth=tk.TRUE)
             self.last_x = x
-            self.last_y = y
+            self.last_y = y 
+            self.pixel_colors[(x, y)] = "black"
 
     def set_active_tool(self, toll):
         self.active_tool = toll
@@ -139,6 +141,61 @@ class ImageWorkspace:
                     p = p + const_b
                 self.__set_pixel(x, y)
 
+
+    def flood_fill(self, x, y, fill_color):
+        stack = [(x, y)]
+        start_color = self.__get_pixel_color(x, y)
+
+        if start_color == fill_color:
+            return
+
+        while stack:
+            x, y = stack.pop()
+
+            neighbors = [(x, y - 1), (x, y + 1), (x - 1, y), (x + 1, y)]
+
+            self.__paint_pixel(x, y, color=fill_color)
+
+            for nx, ny in neighbors:
+                if (0 <= nx < self.canvas.winfo_width() and 0 <= ny < self.canvas.winfo_height()):
+                    neighbor_color = self.__get_pixel_color(nx, ny)
+                    if neighbor_color == start_color  and not self.__is_border(nx, ny):
+                        stack.append((nx, ny))
     
+    def __boundary_fill(self, x, y, boundary_color, fill_color):
+        if (
+            x < 0
+            or y < 0
+            or x >= 200
+            or y >= 200
+        ):
+            return
+
+        current_color = self.__get_pixel_color(x, y)
+
+        if current_color != boundary_color and current_color != fill_color:
+            self.__paint_pixel(x, y, fill_color)
+            self.__boundary_fill(x + 1, y, boundary_color, fill_color)
+            self.__boundary_fill(x - 1, y, boundary_color, fill_color)
+            self.__boundary_fill(x, y + 1, boundary_color, fill_color)
+            self.__boundary_fill(x, y - 1, boundary_color, fill_color)
+
+    def fill_shape_boundary(self, x, y, fill_color):
+        boundary_color = self.current_color
+        self.__boundary_fill(x, y, boundary_color, fill_color)
+
+
     def __set_pixel(self, x, y):
         self.canvas.create_rectangle(x, y, x + 1, y + 1, fill="black")
+        self.pixel_colors[(x, y)] = "black"
+
+    def __paint_pixel(self, x, y, color):
+        self.canvas.create_rectangle(x, y, x + 1, y + 1, fill=color, outline=color)
+        self.pixel_colors[(x, y)] = color
+    
+    def __get_pixel_color(self, x, y):
+        return self.pixel_colors.get((x, y), None)
+
+    def __is_border(self, x, y):
+        pixel_color = self.__get_pixel_color(x, y)
+        return pixel_color == "black"

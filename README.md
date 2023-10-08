@@ -17,11 +17,26 @@ As tecnologias utilizadas nesse projeto são:
 
 A biblioteca utilizada nesse projeto é a biblioteca *tkinter*, que permite a criação de interfaces a partir de código escrito em python. 
 
+# Para gerar um executável do projeto
+
+Necessário instalar o PyInstaller:
+
+`pip install Pyinstaller`
+
+Para gerar o executável:
+
+`pyinstaller -w -F main.py`
+
+Para executar:
+
+`./dist/main.exe`
+
 # Como executar
 
 O código fonte pode ser executado com `python3 main.py`.
 
 Outra alternativa é executar o arquivo executável `main` presente no diretório principal do projeto.
+
 
 # Algoritmo DDA
 
@@ -42,3 +57,15 @@ O algoritmo funciona da seguinte forma:
 O algoritmo de Bresenham é descrito como um algoritmo de rasterização utilizado, nesse projeto, para desenhar retas em um workspace. Par isso o algoritmo recebe de entrada os pontos: (x1, y1) inicias e (x2, y2) finais.
 
 O algoritmo está implementado na classe **image_workspace** e disponível na interface do projeto.
+
+# Algoritmo Flood 
+
+O algoritmo de Flood Fill, também conhecido como algoritmo de preenchimento de área, é um algoritmo utilizado em processamento de imagens e computação gráfica para preencher uma área delimitada por contornos com uma cor específica. O objetivo principal do algoritmo é colorir todas as partes conectadas de uma área delimitada por uma borda, de modo que nenhum pixel dentro da área permaneça com sua cor original.
+
+Nesse projeto, Flood Fill foi implementado utilizando iteração em uma pilha.
+
+# Algoritmo Boundary
+
+Boundary Fill é uma técnica essencial para preencher áreas delimitadas em gráficos e imagens, permitindo que as regiões sejam coloridas de maneira consistente e controlada pelo usuário. Sua implementação pode variar em termos de eficiência e detalhes específicos da linguagem de programação utilizada.
+
+Nesse projeto, Boundary Fill foi implementado utilizando recursão e exige uma alteração de limite de stack da linguagem.
